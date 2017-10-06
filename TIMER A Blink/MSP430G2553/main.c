@@ -2,8 +2,9 @@
 /*
 MSP430G2553
 */
-#define LED0 BIT0		// definitions
+#define LED0 BIT0		// definitions of pins
 #define LED1 BIT6
+#define speed1 1MHZ		//Speed definitions
 
 void initTimer(int capture); //function calling capture
 
@@ -39,7 +40,7 @@ __interrupt void Timer0_A0(void)
 	if (timerCount >= 25) //set timer cycle period
 	{
 		P1OUT ^= (LED0 + LED1); //toggle on LED
-		timerCount = 0; //Reset
+		timerCount = 0; //Reset timer
 	}
 	else timerCount++; //increment until ~2.5s
 }
