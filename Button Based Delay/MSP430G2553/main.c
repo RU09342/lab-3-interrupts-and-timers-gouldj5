@@ -1,7 +1,7 @@
 #include <msp430.h>
 /*
 MSP430G2553
-BUTTON DELAY - LAB3
+Button Based Delay
 */
 #define LED0 BIT0		// definitions of LED pins
 #define LED1 BIT6
@@ -17,12 +17,12 @@ BUTTON DELAY - LAB3
 #define speed5 20
 #define speed6 50
 
-#define BTN0 BIT3		// definitions of BUTTON pins
-#define BTN0REN P1REN
-#define BTN0OUT P1OUT
-#define BTN0IES P1IES
-#define BTN0IE P1IE
-#define BTN0IFG P1IFG
+#define BUTTON BIT3		// definitions of BUTTON pins
+#define BTNREN P1REN
+#define BTNOUT P1OUT
+#define BTNIES P1IES
+#define BTNIE P1IE
+#define BTNIFG P1IFG
 
 unsigned int timerCount = 1; //check button to change speed
 unsigned int ledCount = 1; //blink with timer
@@ -41,11 +41,11 @@ void main(void)
 	LED0OUT &= ~(LED0);               // reset the LEDs
 	LED1OUT &= ~(LED1);               // reset the LEDs
 
-	BTN0REN |= BTN0;                  // puller-resistor on the button pin P1.1
-	BTN0OUT |= BTN0;                  // writes resistor to pullup
-	BTN0IES |= BTN0;                  // triggers when you press the button, "~BIT1" for when release
-	BTN0IE |= BTN0;                   // enables selector-mask for generating interrupts on the pin
-	BTN0IFG &= BTN0;
+	BTNREN |= BUTTON;                  // puller-resistor on the button pin P1.1
+	BTNOUT |= BUTTON;                  // writes resistor to pullup
+	BTNIES |= BUTTON;                  // triggers when you press the button, "~BIT1" for when release
+	BTNIE |= BUTTON;                   // enables selector-mask for generating interrupts on the pin
+	BTNIFG &= BUTTON;
 
 	initTimer(10);					  // Initialize timer at 10Hz 
 
@@ -100,7 +100,7 @@ __interrupt void Timer0_A0(void)
 	else ledCount++; // Increment the counter until it reaches threshold
 }
 void speedSet(int speed) // Sets the hzSpeed to match constant definitions
-{
+{						// could do a case statement here
 	if (speed == 1) hzSpeed = speed1;
 	else if (speed == 2) hzSpeed = speed2;
 	else if (speed == 3) hzSpeed = speed3;

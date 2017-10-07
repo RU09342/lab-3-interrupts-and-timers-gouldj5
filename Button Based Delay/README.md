@@ -6,6 +6,7 @@ Setup your microcontroller to initially blink and LED at a rate of 10Hz upon res
 
 ### Extra Work
 ## Reset Button
+(Works)
 What is a piece of electronics without a reset button? Instead of relying on resetting your processor using the built in reset circuitry, why not instead use another button to reset the rate back to 10Hz.
 
 ## Button Based Hertz
