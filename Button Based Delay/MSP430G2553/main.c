@@ -70,8 +70,8 @@ __interrupt void Port_1(void) // function called when the port is interrupted (b
 {
 	// Button to change the speed of the blinking LED
 	enabled ^= 0x01; // Toggle enable for checking to change blink frequency
-	BTN0IFG &= ~BTN0; // Reset the interupt flag
-	BTN0IES ^= BTN0; // This will trigger the edge so when it is released it will toggle the enable again
+	BTNIFG &= ~BTN0; // Reset the interupt flag
+	BTNIES ^= BTN0; // This will trigger the edge so when it is released it will toggle the enable again
 }
 // TimerA0 interrupt sequence
 #pragma vector=TIMER0_A0_VECTOR

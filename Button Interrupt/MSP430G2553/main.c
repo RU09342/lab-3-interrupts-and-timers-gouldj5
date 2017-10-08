@@ -3,8 +3,8 @@
 MSP430G2553
 Button Interrupt
 */
-#define BUTTON BIT3		//P1.3 BUTTON defined
-#define LED   BIT6		//P1.6 LED green defined
+#define BUTTON BIT3				//P1.3 BUTTON defined
+#define LED   BIT6				//P1.6 LED green defined
 
 void main(void) {
 	WDTCTL = WDTPW | WDTHOLD;	//stop watchdog timer
