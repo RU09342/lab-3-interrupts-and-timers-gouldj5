@@ -1,10 +1,10 @@
 #include <msp430.h>
 /*
-MSP430G2553
+MSP430FR2311
 Timer A Blink
 */
 #define LED0 BIT0		// definitions of pins
-#define LED1 BIT6
+#define LED1 BIT0
 
 void initTimer(int capture); //function calling capture
 
@@ -12,11 +12,13 @@ unsigned int timerCount = 0; //check unsigned
 void main(void)
 {
 	WDTCTL = WDTPW + WDTHOLD; // Stop watchdog
-	P1DIR |= (LED0 + LED1); // Set P1.0 & P1.6 to output direction
-	P1OUT &= ~(LED0 + LED1); // Start LED off
+	P1DIR |= LED0; // Set P1.0 to output direction
+	P1OUT &= ~LED0; // Start LED off
+	P2DIR |= LED1; // Set P2.0 to output direction
+	P2OUT &= ~LED1; // Start LED off
 
 	initTimer(20); // Initialize timer at 10Hz or 0.1s
-
+	PM5CTL0 &= ~LOCKLPM5;           //enable high impedence
 	__enable_interrupt();
 
 	__bis_SR_register(LPM0 + GIE); // LPM0 with interrupts enabled
@@ -39,7 +41,8 @@ __interrupt void Timer0_A0(void)
 {
 	if (timerCount >= 25) //set timer cycle period
 	{
-		P1OUT ^= (LED0 + LED1); //toggle on LED
+		P1OUT ^= LED0; //toggle on LED
+		P2OUT ^= LED1;
 		timerCount = 0; //Reset timer
 	}
 	else timerCount++; //increment until ~2.5s
