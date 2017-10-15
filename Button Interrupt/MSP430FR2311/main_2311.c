@@ -1,16 +1,16 @@
 #include <msp430.h>
 /*
-MSP4305994
+MSP430FR2311
 Button Interrupt
 */
-#define BUTTON BIT6		//P1.6 BUTTON defined
+#define BUTTON BIT1		//P1.1 BUTTON defined
 #define LED   BIT0		//P1.0 LED green defined
 
-#define BTNREN P5REN
-#define BTNOUT P5OUT
-#define BTNIES P5IES
-#define BTNIE P5IE
-#define BTNIFG P5IFG
+#define BTNREN P1REN
+#define BTNOUT P1OUT
+#define BTNIES P1IES
+#define BTNIE P1IE
+#define BTNIFG P1IFG
 
 void main(void) {
 	WDTCTL = WDTPW | WDTHOLD;	//stop watchdog timer
@@ -24,9 +24,8 @@ void main(void) {
 	BTNIE |= BUTTON;		 		//Enable interrupt on BUTTON
 	BTNIFG |= BUTTON;			//Clear interrupt
 
-	PM5CTL0 &= ~LOCKLPM5;		//global interrupt
 
-	__bis_SR_register(GIE);                 // Enable interrupts globally
+	__bis_SR_register(LPM4_bits + GIE);                 // Enable interrupts globally
 
 }
 
@@ -34,9 +33,6 @@ void main(void) {
 #pragma vector=PORT5_VECTOR
 __interrupt void Port_5(void)
 {
-	if (!(P5IN & BUTTON))		//if button pressed
-	{
 		P1OUT ^= LED;				//Toggle green LED
 		BTNIFG &= ~BUTTON;			//Clear BUTTON interrupt flag
-	}
 }
