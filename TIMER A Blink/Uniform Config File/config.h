@@ -27,7 +27,7 @@
 
 #elif defined(__MSP430F5529__)
     #include <msp430f5529.h>		//extended reference for 5529
-
+									//use PM5CTL0 &= ~LOCKLPM5;		//disable high impedence
     #define LED0 BIT0
     #define LED1 BIT7
     #define BUTTON BIT1
@@ -45,6 +45,7 @@
 		
 #elif defined(__MSP430FR6989__)
     #include <msp430fr6989.h>		//extended reference for 6989
+									//PM5CTL0 &= ~LOCKLPM5;		//disable high impedence
     #define LED0 BIT0
     #define LED1 BIT7
     #define BUTTON BIT1

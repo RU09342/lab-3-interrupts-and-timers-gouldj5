@@ -20,7 +20,7 @@ void main(void)
 	initTimer(20); // Initialize timer at 10Hz or 0.1s
 
 	__enable_interrupt();
-
+	PM5CTL0 &= ~LOCKLPM5;		//disable high impedence
 	__bis_SR_register(LPM0 + GIE); // LPM0 with interrupts enabled
 }
 
