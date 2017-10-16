@@ -1,10 +1,10 @@
-#include <msp430.h>
+
+#include <config.h>
+#include <msp430g2553.h>
 /*
 MSP430G2553
 Timer A Blink
 */
-#define LED0 BIT0		// definitions of pins
-#define LED1 BIT6
 
 void initTimer(int capture); //function calling capture
 

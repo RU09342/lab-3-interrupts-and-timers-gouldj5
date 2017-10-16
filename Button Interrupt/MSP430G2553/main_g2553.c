@@ -22,7 +22,7 @@ void main(void) {
 								// enables interupts
 }
 
-#pragma vector=PORT1_VECTOR		//figure out what this does
+#pragma vector=PORT1_VECTOR		
 _interrupt void Port_1(void)
 {
 	P1OUT ^= LED;				//Toggle green LED

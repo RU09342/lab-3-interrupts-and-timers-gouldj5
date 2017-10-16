@@ -15,9 +15,6 @@ msp430.h - default library
 
 #### Tasks
 * [x] Toggle an LED using interrupts
-* [ ] Extra Work - Speed Control
-* [ ] Extra Work - Color Change
-* [ ] Extra Work - Multiple Buttons
 
 ## Compatibility
 * MSP430F5529
@@ -26,22 +23,47 @@ msp430.h - default library
 * MSP430FR5594
 * MSP430G2553
 
+The pin assignments on each board can be different. Certain boards with FR require high impedence on a pin to be disabled. Certain boards use a different timer.
+
 # Functionality Description
 The LED in all processors change states only when the button is pressed. The program was used to understand interrupts. Both LEDs were used as outputs and the button set to input. Interrupts in this program was enabled and set on the falling edge as detailed in the comments of the code. The interrupts used an if else state to turn on either LED. In the 5529 code, the LEDs alternate on and off.
+
 ### Detailed Description
 
-* 
+* Enable SetInterrupts (duh)
+* Toggle LED within the interrupt
+* Clear Button Flag
 
 ### Example Code
 ```C
+#include <msp430.h>
+/*
+MSP430G2553
+Button Interrupt
+*/
+#define BUTTON BIT3				//P1.3 BUTTON defined
+#define LED   BIT6				//P1.6 LED green defined
 
-```
+void main(void) {
+	WDTCTL = WDTPW | WDTHOLD;	//stop watchdog timer
 
-# Extra Work Description
+	P1DIR |= LED;				//set LED pin to output
+	P1DIR &= ~BUTTON;			//set button to input
+	P1REN |= BUTTON;			//Enable pull-resistor
+	P1OUT |= BUTTON;			//Make pull-resistor a pull-up
 
-#### Title
+	P1IES &= ~BUTTON;			//Rising edge interrupt
+	P1IE |= BUTTON;		 		//Enable interrupt on BUTTON
 
-#### Example Code
-```C
+	_bis_SR_register(LPM4_bits + GIE);
+								//Enter LPM4 and Enable CPU Interrupt
+								// enables interupts
+}
 
+#pragma vector=PORT1_VECTOR		//interrupt vector PORT 1
+_interrupt void Port_1(void)
+{
+	P1OUT ^= LED;				//Toggle green LED
+	P1IFG &= ~BUTTON;			//Clear BUTTON interrupt flag
+}
 ```

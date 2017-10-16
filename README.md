@@ -1,3 +1,5 @@
+### extra work in TimerA
+
 # Lab 3: Timers and Interrupts
 During Lab 2, you probably noticed a few unexpected behaviors when trying to program a simple LED blink code. For starters, did you notice that it wasn't as straight forward to have the LED blink at a specific interval (it was not just a simple Clock/Blinking Rate to figure out the required delays). And when you had to deal with multiple LED's blinking at different rates, could you easily maintain the timing between the edges? What about if you wanted the LEDs to be on/off at rates (otherwise known as duty cycle)?
 
