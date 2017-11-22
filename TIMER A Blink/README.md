@@ -29,22 +29,8 @@ msp430.h - default library including extra work
 Control the speed of two LEDS blinking on your development boards using the TIMER modules
 ### Detailed Description
 
-* 
+* Set timer to control LED speed
 
-### Example Code
-```C
-
-```
-
-# Extra Work Description
-
-#### Title
-
-#### Example Code
-```C
-
-```
-# 
 The TIMER peripherals can be used in many situations thanks to it flexibility in features. For this lab, you will be only scratching the surface as to what this peripheral can do. 
 
 ## Up, Down, Continuous 
